@@ -5,7 +5,12 @@ import { PopoverContent, PopoverTrigger } from "@radix-ui/react-popover";
 import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 import { Popover } from "@/components/ui/popover";
-import { Check, ChevronsUpDown, Store as StoreIcon } from "lucide-react";
+import {
+  Check,
+  ChevronsUpDown,
+  PlusCircle,
+  Store as StoreIcon,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import {
@@ -61,11 +66,11 @@ export default function StoreSwitcher({
           className={cn("w-[200px] justify-between", className)}
         >
           <StoreIcon className="mr-2 h-4 w-4" />
-          Current Store
-          <ChevronsUpDown className="ml-auto h-4 w-4 shrink-0 opacity-50" />
+          {currentStore?.label}
+          <ChevronsUpDown className="ml-auto h-4 w-4 " />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[200px] p-0">
+      <PopoverContent className="w-[200px] p-0 shadow-md border rounded-sm mt-1">
         <Command>
           <CommandList>
             <CommandInput placeholder="Search store..." />
@@ -91,7 +96,20 @@ export default function StoreSwitcher({
               ))}
             </CommandGroup>
           </CommandList>
-          <CommandSeparator/>
+          <CommandSeparator />
+          <CommandList>
+            <CommandGroup>
+              <CommandItem
+                onSelect={() => {
+                  setOpen(false);
+                  storeModal.onOpen();
+                }}
+              >
+                <PlusCircle className="mr-2 h-5 w-5" />
+                Create store
+              </CommandItem>
+            </CommandGroup>
+          </CommandList>
         </Command>
       </PopoverContent>
     </Popover>

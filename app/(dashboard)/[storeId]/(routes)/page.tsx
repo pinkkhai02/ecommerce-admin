@@ -1,24 +1,17 @@
-import prismadb from "@/lib/prismadb"
+import prismadb from "@/lib/prismadb";
 
 interface DashboardProps {
   params: {
-    id: string
-  }
+    storeId: string;
+  };
 }
-const DashboardPage: React.FC<DashboardProps> = async ({
-  params
-}) =>{
+const DashboardPage: React.FC<DashboardProps> = async ({ params }) => {
   const store = await prismadb.store.findFirst({
-    where:{
-      id: params.id
-    }
-  })
-    return(
-      <div>
-        Active Store: { store?.name}
-      </div>
-    )
-}
+    where: {
+      id: params.storeId,
+    },
+  });
+  return <div>Active Store: {store?.name}</div>;
+};
 
-
-export default DashboardPage
+export default DashboardPage;
